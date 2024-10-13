@@ -12,15 +12,19 @@ public class Hero : MonoBehaviour
     public float rollMult = -45;
     public float pitchMult = 30;
 
-    [Header("Dynamic")][Range(0,4)]//Adds a slider of 0-4 in the Inspector
-    public float shieldLevel = 1;
+    [Header("Dynamic")][Range(0,4)]     //Adds a slider of 0-4 in the Inspector
+    private float  _shieldLevel = 1;    // Remember the underscore
+    [Tooltip( "This field holds a reference to the last triggering GameObject")]
+    private GameObject lastTriggerGo = null;
 
 
     void Awake(){
-        if(S == null){
+        if(S == null)
+        {
             S = this;//Set singleton is null
         }
-        else{
+        else
+        {
             Debug.LogError("Hero.Awake() - Attempted to assign second Hero.S!");
         }
     }
@@ -40,5 +44,41 @@ public class Hero : MonoBehaviour
 
         //Rotate the ship to make it feel more dynamic (a bit of rotation based on speed)
         transform.rotation = Quaternion.Euler(vAxis*pitchMult, hAxis*rollMult, 0);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Transform rootT = other.gameObject.transform.root;
+        GameObject go = rootT.gameObject;
+        // Debug.Log("Shield trigger hit by: " +go.gameObject.name);
+        
+        // Make sure it's not the same triggering go as last time
+        if ( go == lastTriggerGo ) return;
+        lastTriggerGo = go;
+
+        Enemy enemy = go.GetComponent<Enemy>();
+        if (enemy != null)      // If the shield was triggered by an enemy
+        {
+            shieldLevel--;      // Decrease the level of the shield by 1
+            Destroy(go);        // ... and Destroy the enemy
+        }
+        else
+        {
+            Debug.Log("Shield trigger hit by non-Enemy: "+go.name);
+        }
+    }
+
+    public float shieldLevel
+    {
+        get { return (_shieldLevel ); }
+        private set
+        {
+            _shieldLevel = Mathf.Min( value, 4 );
+            // If the shield is going to be set to less than zero...
+            if (value < 0)
+            {
+                Destroy(this.gameObject);   // Destroy the hero
+            }
+        }
     }
 }
