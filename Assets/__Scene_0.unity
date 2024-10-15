@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -337,6 +337,7 @@ MonoBehaviour:
   - {fileID: 2254494392228728814, guid: bb0d9f5d5b48d114e999069ee2e28d90, type: 3}
   enemySpawnPerSecond: 0.5
   enemyInsetDefault: 1.5
+  gameRestartDelay: 2
 --- !u!1 &1037939336
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +500,8 @@ MonoBehaviour:
   speed: 30
   rollMult: -45
   pitchMult: 30
-  shieldLevel: 1
+  projectilePrefab: {fileID: 3060131004576048924, guid: 9a0cb920dc987a14c8e8162975878e2f, type: 3}
+  projectileSpeed: 40
 --- !u!4 &1357668833
 Transform:
   m_ObjectHideFlags: 0
