@@ -8,8 +8,12 @@ public class Enemy_2 : Enemy
     public float lifeTime = 10;
     [Tooltip("Determines how much the Sine wave will eaase the interpolation")]
     public float sinEccentricity = 0.6f;
+    public AnimationCurve rotCurve;
     [Header("Enemy_2 Private Fields")]
-    [SerializeField] private float birthTime; //Interpolation start time
+
+    [SerializeField] 
+    private float birthTime; //Interpolation start time
+    private Quaternion baseRotation;
     [SerializeField] private Vector3 p0, p1; //Lerp_points
    
     void Start()
@@ -32,6 +36,11 @@ public class Enemy_2 : Enemy
         }
         //Set the birthTime to the current time
         birthTime = Time.time;
+
+        // Set up the initial ship rotation
+        transform.position = p0;
+        transform.LookAt(p1, Vector3.back);
+        baseRotation = transform.rotation;
     }
 
     public override void Move(){
@@ -44,6 +53,12 @@ public class Enemy_2 : Enemy
             Destroy(this.gameObject);
             return;
         }
+
+        // Use the AnimationCurve to set the rotation about Y
+        float shipRot = rotCurve.Evaluate( u ) * 360;
+        // if ( p0.x > p1.x ) shipRot = -shipRot;
+        // transform.rotation = Quaternion.Euler(0,shipRot,0);
+        transform.rotation = baseRotation * Quaternion.Euler(-shipRot, 0, 0);
 
         //Adjust u by adding a U curve on a sine wave
         u = u + sinEccentricity*(Mathf.Sin(u*Mathf.PI*2));
