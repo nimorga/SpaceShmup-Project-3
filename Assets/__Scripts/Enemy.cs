@@ -10,7 +10,10 @@ public class Enemy : MonoBehaviour
     public float firerate   = 0.3f;      // Seconds/shot (Unused)
     public float health     = 10;       // Damage needed to destroy this enemy
     public int score        = 100;      // Points earned for destroying this
+    public float powerUpDropChance = 1f; // Chance to drop a PowerUp
 
+
+    protected bool calledShipDestroyed = false;
     protected BoundsCheck bndCheck;//Changed from private to public to be seen by subclasses
 
     void Awake()
@@ -49,14 +52,30 @@ public class Enemy : MonoBehaviour
         pos = tempPos;
     }
 
-    void OnCollisionEnter(Collision coll){ //Get gameobject within the collision
-        GameObject otherGO = coll.gameObject;
-        if(otherGO.GetComponent<ProjectileHero>() != null){
-            Destroy(otherGO); //Destory Projectile
-            Destroy(gameObject); //Destory this enemy GameObject
-        }
-        else{
-            Debug.Log("Enemy hit by non-ProjectileHero: " + otherGO.name);
+    void OnCollisionEnter(Collision coll){
+        GameObject otherGo = coll.gameObject;
+
+        // Check for collisions with ProjectileHero
+        ProjectileHero p = otherGo.GetComponent<ProjectileHero>();
+        if ( p != null ) {
+            // Only damage this Enemy if it's on screen
+            if ( bndCheck.isOnScreen ) {
+                // Get the damage amount from the Main WEAP_DICT.
+                health -= Main.GET_WEAPON_DEFINITION( p.type ).damageOnHit;
+                if ( health <= 0 ) {
+                    // Tell Main that this ship was destroyed
+                    if (!calledShipDestroyed){
+                        calledShipDestroyed = true;
+                        Main.SHIP_DESTROYED( this );
+                    }
+                    // Destroy this Enemy
+                    Destroy( this.gameObject );
+                }
+            }
+            // Destroy the ProjectileHero regardless
+            Destroy( otherGo );
+        } else {
+            print( "Enemy hit by non-ProjectileHero: " + otherGo.name );
         }
     }
 }
