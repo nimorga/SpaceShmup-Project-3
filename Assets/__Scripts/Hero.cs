@@ -16,6 +16,9 @@ public class Hero : MonoBehaviour
     public Weapon[] weaponlist;
     public WeaponFireDelegate[] weapons;
 
+    public AudioClip powerUpClip; //Reference to the power-up audio clip
+    private AudioSource audioSource; //Reference to the AudioSource component
+
     [Header("Dynamic")][Range(0,4)]     //Adds a slider of 0-4 in the Inspector
     private float  _shieldLevel = 1;    // Remember the underscore
     [Tooltip( "This field holds a reference to the last triggering GameObject")]
@@ -35,6 +38,7 @@ public class Hero : MonoBehaviour
             Debug.LogError("Hero.Awake() - Attempted to assign second Hero.S!");
         }
         // fireEvent += TempFire;
+        audioSource = GetComponent<AudioSource>();//Initialize Audio
 
         // Reset the weapons to start _Hero with 1 blaster
         ClearWeapons();
@@ -110,6 +114,7 @@ public class Hero : MonoBehaviour
         switch (pUp.type) {
             case eWeaponType.shield:
                 shieldLevel++;
+                audioSource.PlayOneShot(powerUpClip);//Play powerup
                 break;
 
             default:
@@ -118,10 +123,13 @@ public class Hero : MonoBehaviour
                     if (weap != null) {
                         // Set it to pUp.type
                         weap.SetType(pUp.type);
+                        //ADDED
+                        audioSource.PlayOneShot(powerUpClip);//Play powerup
                     }
                 } else {
                     ClearWeapons();
                     weaponlist[0].SetType(pUp.type);
+                    audioSource.PlayOneShot(powerUpClip);//Play powerup
                 }
                 break;
         }

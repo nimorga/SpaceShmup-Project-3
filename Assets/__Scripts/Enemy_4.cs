@@ -7,7 +7,6 @@ public class Enemy_4 : Enemy {
     [Header("Enemy_4 Inscribed Fields")]
     public float duration = 4; // Duration of interpolation movement
 
-
     private EnemyShield[] allShields;
     private EnemyShield thisShield;
     private Vector3 p0, p1; // The two points to interpolate
@@ -63,7 +62,7 @@ public class Enemy_4 : Enemy {
     /// <param name="coll"></param>
     void OnCollisionEnter( Collision coll ) {
         GameObject otherGO = coll.gameObject;
-
+        
         // Make sure this was hit by a ProjectileHero
         ProjectileHero p = otherGO.GetComponent<ProjectileHero>();
         if ( p != null ) {
@@ -98,6 +97,10 @@ public class Enemy_4 : Enemy {
                 if ( !calledShipDestroyed ) {
                     Main.SHIP_DESTROYED( this );
                     calledShipDestroyed = true;
+                    //ADDED for ship 4
+                    if (this.gameObject.name == "Enemy_4(Clone)") {
+                        scoreCounter.AddScore(10);
+                    } 
                 }
 
                 // Destroy this Enemy_4

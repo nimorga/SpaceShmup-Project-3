@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     public int score        = 100;      // Points earned for destroying this
     public float powerUpDropChance = 1f; // Chance to drop a PowerUp
 
+    protected Score scoreCounter;//Reference to Score script
+
 
     protected bool calledShipDestroyed = false;
     protected BoundsCheck bndCheck;//Changed from private to public to be seen by subclasses
@@ -19,6 +21,7 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         bndCheck = GetComponent<BoundsCheck>();
+        scoreCounter = FindObjectOfType<Score>();//To also set for Enemy_4 script to use
     }
 
     // This is a Property: A method that acts like a field
@@ -67,6 +70,20 @@ public class Enemy : MonoBehaviour
                     if (!calledShipDestroyed){
                         calledShipDestroyed = true;
                         Main.SHIP_DESTROYED( this );
+                        //NICOLE ADDED THIS=========================================
+                        //Debug.Log("Name: " + this.gameObject.name);
+                        if (this.gameObject.name == "Enemy_0(Clone)") {
+                            scoreCounter.AddScore(1);
+                        } 
+                        else if (this.gameObject.name == "Enemy_1(Clone)") {
+                            scoreCounter.AddScore(2);
+                        } 
+                        else if (this.gameObject.name == "Enemy_2(Clone)") {
+                            scoreCounter.AddScore(3);
+                        } 
+                        else if (this.gameObject.name == "Enemy_3(Clone)") {
+                            scoreCounter.AddScore(5);
+                        } 
                     }
                     // Destroy this Enemy
                     Destroy( this.gameObject );
