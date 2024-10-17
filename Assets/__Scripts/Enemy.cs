@@ -73,16 +73,16 @@ public class Enemy : MonoBehaviour
                         //NICOLE ADDED THIS=========================================
                         //Debug.Log("Name: " + this.gameObject.name);
                         if (this.gameObject.name == "Enemy_0(Clone)") {
-                            scoreCounter.AddScore(1);
+                            scoreCounter.AddScore(score);
                         } 
                         else if (this.gameObject.name == "Enemy_1(Clone)") {
-                            scoreCounter.AddScore(2);
+                            scoreCounter.AddScore(100);
                         } 
                         else if (this.gameObject.name == "Enemy_2(Clone)") {
-                            scoreCounter.AddScore(3);
+                            scoreCounter.AddScore(250);
                         } 
                         else if (this.gameObject.name == "Enemy_3(Clone)") {
-                            scoreCounter.AddScore(5);
+                            scoreCounter.AddScore(300);
                         } 
                     }
                     // Destroy this Enemy

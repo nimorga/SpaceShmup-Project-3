@@ -29,6 +29,8 @@ public class Hero : MonoBehaviour
     //Create a WeaponFireDelegate event named fireEvent
     public event  WeaponFireDelegate fireEvent;
 
+    protected Score scoreCounter;//Reference to Score script
+
 
     void Awake(){
         if(S == null) {

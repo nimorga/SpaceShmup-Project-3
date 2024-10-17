@@ -99,7 +99,7 @@ public class Enemy_4 : Enemy {
                     calledShipDestroyed = true;
                     //ADDED for ship 4
                     if (this.gameObject.name == "Enemy_4(Clone)") {
-                        scoreCounter.AddScore(10);
+                        scoreCounter.AddScore(450);
                     } 
                 }
 
