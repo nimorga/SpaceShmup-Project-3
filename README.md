@@ -6,7 +6,7 @@ A shoop 'em up game created using the *Introduction to Game Design, Prototyping,
   - Enemy_0 = 100
   - Enemy_1 = 100
   - Enemy_2 = 250
-  - Enemy_3 = 350
+  - Enemy_3 = 300
   - Enemy_4 = 450
 - **Power Up Sound:** A audio clip plays whenever the player picks up a new power up to enchance their blaster or replenishing their shield.
 
