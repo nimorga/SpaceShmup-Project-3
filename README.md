@@ -4,7 +4,7 @@ A shoop 'em up game created using the *Introduction to Game Design, Prototyping,
 ### Description
 - **Score Counter:** We have added a score counter for the game in the top right corner to track the players progress and points. Listed below are the enemies and their point values:
   - Enemy_0 = 100
-  - Enemy_1 = 250
+  - Enemy_1 = 100
   - Enemy_2 = 250
   - Enemy_3 = 350
   - Enemy_4 = 450
