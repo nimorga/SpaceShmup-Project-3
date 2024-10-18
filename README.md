@@ -1,6 +1,8 @@
 # SpaceShmup-Project-3
 A shoop 'em up game created using the *Introduction to Game Design, Prototyping, and Development* textbook. This games purpose is to shoot projectiles as a Hero ship at the 5 different enemy ships that spawn in at random.
 
+## Enhancements
+
 ### Description
 - **Score Counter:** We have added a score counter for the game in the top right corner to track the players progress and points. Listed below are the enemies and their point values:
   - Enemy_0 = 100
